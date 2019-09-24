@@ -1,2 +1,2 @@
-﻿  16.static.cpp
-  Cpp.vcxproj -> C:\project\Visual Studio\Cpp\x64\Debug\Cpp.exe
+﻿  7.new and delete.cpp
+C:\project\Visual Studio\Cpp\Cpp\7.new and delete.cpp(44,13): error C2397:  'double'에서 'int'(으)로의 변환에는 축소 변환이 필요합니다.

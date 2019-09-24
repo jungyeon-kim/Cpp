@@ -10,7 +10,7 @@ class Test
 {
 public:
 	Test() = default;
-	Test(const string rhs) { cout << "Test()" << endl; }
+	Test(const string& rhs) { cout << "Test()" << endl; }
 };
 
 class TestEx : public Test

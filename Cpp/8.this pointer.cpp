@@ -14,6 +14,7 @@ public:
 
 	void print() const
 	{
+		cout << val << endl;
 		cout << this << endl;
 		cout << &val << endl;
 		cout << this->val << endl;

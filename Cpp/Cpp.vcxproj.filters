@@ -48,9 +48,6 @@
     <ClCompile Include="13.inheritance.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="14.cast.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="12.operator overloading.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -69,5 +66,13 @@
     <ClCompile Include="18.virtual base class.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="14.type and casting.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="hearder.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
