@@ -36,6 +36,11 @@ public:
 	virtual void testFunc() override { cout << "TestEx" << endl; }
 };
 
+template <typename T>
+class Grid
+{
+};
+
 int main()
 {
 	// typedef float Myfloat;	// ∫Ò√ﬂ√µ

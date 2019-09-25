@@ -27,15 +27,6 @@
     <ClCompile Include="4.namespace.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="6.constructor.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="7.new and delete.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="8.this pointer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="9.move constuctor.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -54,9 +45,6 @@
     <ClCompile Include="15.return.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="5.template.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="16.static.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -67,6 +55,18 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="14.type and casting.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="8.template.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="5.constructor.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="6.new and delete.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="7.this pointer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
