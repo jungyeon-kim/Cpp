@@ -4,7 +4,7 @@ using namespace std;
 
 /*
 	typedef:	어떤 타입에 대한 별명을 만든다.
-	using:		typedef와 같은기능. (17번에서 더 많은 기능을 설명한다.)
+	using:		typedef와 같은기능. (다음 파일에 추가 기능을 설명)
 */
 
 /*
