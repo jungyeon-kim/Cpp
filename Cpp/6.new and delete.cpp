@@ -12,9 +12,9 @@ using namespace std;
 */
 
 /*
-	constexpr:		상수만 초기화가능 혹은 상수로 캐스팅됨, 컴파일 과정에 처리됨 (빠름)
+	constexpr:		상수만 초기화가능 혹은 상수로 캐스팅됨 (변수, 함수 둘다가능), 컴파일 과정에 처리됨 (빠름)
 	mutable:		const 타입의 영역에서 해당 값의 수정을 가능하게 해줌
-	explicit:		묵시적 형변환 방지 (생성자와 변환연산자에 사용)
+	explicit:		묵시적 형변환 방지 (생성자와 형변환연산자에 사용)
 */
 
 class Test
@@ -28,7 +28,7 @@ public:
 	Test(int i) : val{ i } {}
 	~Test() { cout << "~Test()" << endl; }
 
-	explicit operator int() const { return val; }	// int()변환 연산자 오버로딩 (반환형식을 기재하지 않는다.)
+	explicit operator int() const { return val; }	// int()변환 연산자 오버로딩 (반환타입을 기재하지 않는다.)
 
 	void print() const
 	{
@@ -41,7 +41,7 @@ int main()
 {
 	Test t{ 10 };
 	int i = static_cast<int>(t);	// int()변환 연산자가 explicit이라 명시적으로 타입캐스팅을 해주어야한다.
-	int j{ t };						// 근데 얘는 왜 될까..??
+	int j{ t };						// 유니폼초기화{}와 직접초기화()는 허용된다. 왜?
 
 	///////////////////////////////////////////////////////////////////////
 
