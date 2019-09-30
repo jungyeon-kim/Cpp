@@ -72,6 +72,9 @@
     <ClCompile Include="18.static.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="20.exception.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hearder.h">
