@@ -46,7 +46,7 @@ public:
 		data = make_unique<int>(*rhs.data);
 		return *this;
 	}
-	Test& operator=(Test &&rhs)	// 이동대입연산자
+	Test& operator=(Test &&rhs)			// 이동대입연산자
 	{
 		cout << "Test& operator=(Test &&rhs)" << endl;
 		//if (data && this != &rhs) delete data;

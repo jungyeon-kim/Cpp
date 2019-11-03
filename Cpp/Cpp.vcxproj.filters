@@ -51,9 +51,6 @@
     <ClCompile Include="6.new and delete.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="7.this pointer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="14.virtual base class.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -73,6 +70,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="20.exception.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="7.getter and setter.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

@@ -15,6 +15,8 @@ using namespace std;
 	inline 선언을 하여도 컴파일러가 효율적이지 못하다 판단하면 inline화가 안될 수도 있다. (상대적으로 작은 크기를 인라이닝함)
 */
 
+//	둘다 함수본체가 선언되기 때문에 호출이나 리턴등의 오버헤드가 사라져 일반함수보다 속도가 빠르다.
+
 inline int add(int a, int b)
 {
 	return a + b;

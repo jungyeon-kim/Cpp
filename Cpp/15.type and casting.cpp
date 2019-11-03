@@ -52,6 +52,6 @@ int main()
 	cout << data << endl;
 
 	// 상속관계 캐스팅
-	Test *obj1{};
-	TestEx *obj2{ dynamic_cast<TestEx*>(obj1) };	// down casting
+	Test* obj1{};
+	TestEx* obj2{ dynamic_cast<TestEx*>(obj1) };	// down casting
 }

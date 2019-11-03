@@ -2,33 +2,45 @@
 
 using namespace std;
 
-class Test
+/*
+	함수객체:	함수호출연산자를 가진 클래스 (functor라고도 칭함)
+*/
+
+class Test	// 함수객체
 {
 private:
 	int data{};
 public:
-	Test() {}
-	Test(int nParam) : data{ nParam } {}
+	Test() = default;
+	~Test() = default;
 
-	friend ostream& operator<<(ostream& os, const Test& rhs)	// 출력 연산자
+	int operator+(const Test& rhs) const
+	{
+		return data + rhs.data;
+	}
+	int operator()(int param)
+	{
+		return param * param;
+	}
+	int operator()(const Test& param)
+	{
+		return param.data * param.data;
+	}
+	bool operator<(const Test& rhs) const
+	{
+		return data < rhs.data;
+	}
+	friend ostream& operator<<(ostream& os, const Test& rhs)
 	{
 		os << rhs.data;
 		return os;
 	}
-	friend istream& operator>>(istream& is, Test& rhs)	// 입력 연산자
+	friend istream& operator>>(istream& is, Test& rhs)
 	{
 		is >> rhs.data;
 		return is;
 	}
 };
-
-template <typename T>			// type은 Test
-void change(T &left, T &right)	// call by reference
-{
-	T tmp{ left };
-	left = right;
-	right = tmp;
-}
 
 int main()
 {
@@ -37,7 +49,7 @@ int main()
 
 	cin >> a >> b;
 
-	change(a, b);
-
-	cout << a << ", " << b << endl;	// ex) cout << a; -> operator<<(cout, a);
+	cout << a << ", " << b << endl;		// ex) cout << a; -> operator<<(cout, a);
+	cout << a + b << endl;
+	cout << a(3) << ", " << a(b) << endl;
 }
