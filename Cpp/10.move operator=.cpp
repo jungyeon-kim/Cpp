@@ -67,7 +67,7 @@ int main()
 	Test b{};	// 기본생성자 호출
 	
 	cout << "b: " << b.getDataAddress() << endl;
-
+	
 	Test c{}; // 기본생성자 호출
 
 	b = a;	// b.operator=(a);	// 대입연산자 호출
