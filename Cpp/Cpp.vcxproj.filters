@@ -75,6 +75,9 @@
     <ClCompile Include="7.getter and setter.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="21.enum.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hearder.h">
