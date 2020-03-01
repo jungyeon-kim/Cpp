@@ -40,7 +40,7 @@ public:
 
 	Test& operator=(const Test &rhs)	// 대입연산자
 	{
-		cout << "Test& operator=(const Test &rhs)" << endl;
+		cout << "Test& operator=(const Test& rhs)" << endl;
 		//if (data && this != &rhs) delete data;	// 할당된 값 해제 (메모리 릭 방지, 자신 대입 예외처리)
 		//data = new int{ *rhs.data };
 		data = make_unique<int>(*rhs.data);
@@ -48,7 +48,7 @@ public:
 	}
 	Test& operator=(Test &&rhs)			// 이동대입연산자
 	{
-		cout << "Test& operator=(Test &&rhs)" << endl;
+		cout << "Test& operator=(Test&& rhs)" << endl;
 		//if (data && this != &rhs) delete data;
 		data = std::move(rhs.data);
 		//rhs.data = nullptr;	// 안해주면 delete가 일어남 (중복오류)
@@ -57,7 +57,7 @@ public:
 
 	int getDataValue() const { return *data; }						// return by value (복사도 가능 -> *data는 value이기 때문)
 	const unique_ptr<int>& getDataAddress() const { return data; }	// return by reference	(unique_ptr은 복사가 불가능)
-	void setData(const int &nParam) { *data = nParam; }				// data의 주소값은 안바뀌고 값만 바뀜
+	void setData(int nParam) { *data = nParam; }				// data의 주소값은 안바뀌고 값만 바뀜
 
 };
 

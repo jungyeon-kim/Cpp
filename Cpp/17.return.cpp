@@ -17,7 +17,7 @@ public:
 	int getX() const { return x; }					// return by value
 	void setX(int param) { x = param; }
 
-	const int& getY() const { return y; }		// return by reference
+	const int& getY() const { return y; }			// return by reference
 	void setY(int param) { y = param; }
 
 	const int* getZ() const { return &z; }			// return by address

@@ -4,7 +4,7 @@
 using namespace std;
 
 /*
-	unique_ptr: 자원을 독점 -> 복사가 불가능 (이동시맨틱으로 가능)
+	unique_ptr: 자원을 독점 -> 복사가 불가능 (이동시맨틱이나 참조자(&)로 가능)
 	shared_ptr: 자원을 공유 -> reference count가 0이되면 객체가 자동으로 소멸
 	weak_ptr:	자원을 공유 -> 참조만 할뿐 shared_ptr의 reference counting에 관여되지 않는다.
 				shared_ptr에 의존적이기 때문에 직접적으로 포인터에 접근할 수 없다. -> 자체적 생성, 대입 불가능
@@ -14,11 +14,6 @@ using namespace std;
 				release()로 반환한 포인터는 반드시 사용자가 delete 해주어야 한다.
 	lock():		자신이 속해있는 shared_ptr을 반환 (weak_ptr에만 존재)
 */
-
-class Pointer
-{
-
-};
 
 int main()
 {
