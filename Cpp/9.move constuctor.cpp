@@ -34,6 +34,11 @@ using namespace std;
 	int &b = a;			// l-value 참조
 */
 
+/*
+	공간 재할당시에 이동을 하게되면 이전 공간의 데이터는 사라지기때문에 예외를 던질 수 없다.
+	따라서, 벡터같은 STL 컨테이너의 경우 원소로 하는 클래스의 이동복사생성자에 noexcept를 사용해주어야한다.
+*/
+
 class Test
 {
 private:
@@ -73,14 +78,20 @@ public:
 	void setData(int nParam) { *data = nParam; }
 };
 
+#include <vector>
 int main()
 {
-	Test a{};				// 기본생성자 호출
+	vector<Test> v{};
+	int c{};
 
-	cout << "a: " << a.getData() << endl;
+	v.emplace_back();
+	v.emplace_back();
+	//Test a{};				// 기본생성자 호출
 
-	Test b{ a };			// 복사생성자 호출 ( 객체가 새롭게 생성될때만! -> b = a;는 대입연산자)
-	Test c{ std::move(a) };	// 이동생성자 호출, move: r-value로 캐스팅
+	//cout << "a: " << a.getData() << endl;
 
-	cout << "a: " << a.getData() << "	b: " << b.getData() << "	c: " << c.getData() << endl;
+	//Test b{ a };			// 복사생성자 호출 ( 객체가 새롭게 생성될때만! -> b = a;는 대입연산자)
+	//Test c{ std::move(a) };	// 이동생성자 호출, move: r-value로 캐스팅
+
+	//cout << "a: " << a.getData() << "	b: " << b.getData() << "	c: " << c.getData() << endl;
 }

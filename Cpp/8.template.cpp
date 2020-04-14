@@ -66,5 +66,5 @@ int main()
 	cout.precision(1024);
 	t1.print(pi<float>);	// 템플릿 매개변수 E를 추가해줌으로써 축소변환이 일어나지 않음
 	t2.print(pi<double>);	// 위와 동일
-	t3.print("hello");	// string형 외의 자료형 불가
+	t3.print("hello");		// string형 외의 자료형 불가
 }
