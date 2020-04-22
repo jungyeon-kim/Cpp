@@ -38,7 +38,7 @@ public:
 		//}
 	}
 
-	Test& operator=(const Test &rhs)	// 대입연산자
+	Test& operator=(const Test &rhs)		// 대입연산자
 	{
 		cout << "Test& operator=(const Test& rhs)" << endl;
 		//if (data && this != &rhs) delete data;	// 할당된 값 해제 (메모리 릭 방지, 자신 대입 예외처리)
@@ -46,7 +46,7 @@ public:
 		data = make_unique<int>(*rhs.data);
 		return *this;
 	}
-	Test& operator=(Test &&rhs)			// 이동대입연산자
+	Test& operator=(Test &&rhs) noexcept	// 이동대입연산자
 	{
 		cout << "Test& operator=(Test&& rhs)" << endl;
 		//if (data && this != &rhs) delete data;

@@ -35,8 +35,9 @@ using namespace std;
 */
 
 /*
-	공간 재할당시에 이동을 하게되면 이전 공간의 데이터는 사라지기때문에 예외를 던질 수 없다.
-	따라서, 벡터같은 STL 컨테이너의 경우 원소로 하는 클래스의 이동복사생성자에 noexcept를 사용해주어야한다.
+	이동 시맨틱은 예외를 던질 수 없다.
+	벡터같은 STL 컨테이너의 경우 공간 재할당시에 이동을 하게되면 이전 공간의 데이터는 사라지기때문이다.
+	따라서, 이동 시맨틱에는 noexcept 키워드가 붙어야한다.
 */
 
 class Test
@@ -67,7 +68,7 @@ public:
 		data = new int{ *rhs.data };	// data에 rhs.data의 '값'을 할당
 										// rhs.data = 주소값, *rhs.data = 값
 	}
-	Test(Test &&rhs)		// 이동생성자: 임시객체라는 점을 고려해 얕은복사를 하여 성능을 높이자.
+	Test(Test &&rhs) noexcept			// 이동생성자: 임시객체라는 점을 고려해 얕은복사를 하여 성능을 높이자.
 	{
 		cout << "Test(Test&& rhs)" << endl;
 		data = rhs.data;	// 얕은복사
@@ -81,17 +82,12 @@ public:
 #include <vector>
 int main()
 {
-	vector<Test> v{};
-	int c{};
+	Test a{};				// 기본생성자 호출
 
-	v.emplace_back();
-	v.emplace_back();
-	//Test a{};				// 기본생성자 호출
+	cout << "a: " << a.getData() << endl;
 
-	//cout << "a: " << a.getData() << endl;
+	Test b{ a };			// 복사생성자 호출 ( 객체가 새롭게 생성될때만! -> b = a;는 대입연산자)
+	Test c{ std::move(a) };	// 이동생성자 호출, move: r-value로 캐스팅
 
-	//Test b{ a };			// 복사생성자 호출 ( 객체가 새롭게 생성될때만! -> b = a;는 대입연산자)
-	//Test c{ std::move(a) };	// 이동생성자 호출, move: r-value로 캐스팅
-
-	//cout << "a: " << a.getData() << "	b: " << b.getData() << "	c: " << c.getData() << endl;
+	cout << "a: " << a.getData() << "	b: " << b.getData() << "	c: " << c.getData() << endl;
 }

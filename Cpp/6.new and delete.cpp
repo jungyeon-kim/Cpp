@@ -19,6 +19,7 @@ using namespace std;
 					런타임이 아닌 컴파일 타임에서 초기화가 이루어지기 때문에 런타임 속도가 빨라진다.
 	mutable:		const 타입의 영역에서 해당 값의 수정을 가능하게 해줌
 	explicit:		묵시적 형변환 방지 (생성자와 형변환연산자에 사용)
+	volatile:		컴파일러의 최적화 옵션이 적용되지 않음
 */
 
 class Test
