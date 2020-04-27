@@ -29,7 +29,7 @@ using namespace std;
 	joinable():	해당 스레드를 join()으로 기다릴 수 있는 상태인지 bool값을 반환한다. (detach된 상태라면 false 반환)
 
 	mutex)
-	lock():		어떤 자원을 다른 스레드에서 사용중이면 대기. 사용중이 아니면 자신의 스레드에서 사용중 표시
+	lock():		어떤 자원을 다른 스레드에서 사용중이면 대기. 사용중이 아니면 자신의 스레드에서 사용중 표시 (성능저하)
 	unLock():	사용중 표시를 지움
 
 	※ mutex 객체는 전역변수여야함 (같은 자원을 사용하는 스레드마다 mutex도 같은 객체여야하기 때문)
@@ -57,7 +57,7 @@ void solution1()
 		v[i].detach();
 	}
 	for (auto& thread : v)
-		if (thread.joinable())
+		if (thread.joinable())	// join()을 호출할 수 있는지 확인
 			thread.join();		// detach되면 join()이 호출되지 않기 때문에 스레드 실행도중 프로그램이 종료된다.
 }
 
@@ -67,12 +67,14 @@ mutex m{};	// mutex 객체
 
 void add()
 {
-	for (int i = 0; i < 1000000; ++i)
-	{
-		m.lock();		// lock을 걸어주지않으면 DataRace에 의해 sum은 예상과 다른 값이 됨
-		++sum;
-		m.unlock();
-	}
+	int localSum{};
+
+	// 부하를 유발하는 lock을 사용하지않고 연산하기 위해 로컬변수를 사용
+	for (int i = 0; i < 1000000; ++i) ++localSum;
+
+	m.lock();			// lock을 걸어주지않으면 DataRace에 의해 sum은 예상과 다른 값이 됨
+	sum += localSum;	// 로컬변수의 결과를 전역변수(공유자원)에 더해줄때만 lock을 사용
+	m.unlock();
 }
 
 void solution2()
