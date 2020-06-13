@@ -41,7 +41,8 @@ public:
 	Test& operator=(const Test &rhs)		// 대입연산자
 	{
 		cout << "Test& operator=(const Test& rhs)" << endl;
-		//if (data && this != &rhs) delete data;	// 할당된 값 해제 (메모리 릭 방지, 자신 대입 예외처리)
+		if (this == &rhs) return *this;
+		//if (data) delete data;			// 할당된 값 해제 (메모리 릭 방지)
 		//data = new int{ *rhs.data };
 		data = make_unique<int>(*rhs.data);
 		return *this;
@@ -49,15 +50,17 @@ public:
 	Test& operator=(Test &&rhs) noexcept	// 이동대입연산자
 	{
 		cout << "Test& operator=(Test&& rhs)" << endl;
-		//if (data && this != &rhs) delete data;
-		data = std::move(rhs.data);
-		//rhs.data = nullptr;	// 안해주면 delete가 일어남 (중복오류)
+		if (this == &rhs) return *this;
+		//if (data) delete data;
+		data = std::move(rhs.data);		// rhs.data는 소멸될 주소이니 내부적으로 새로운 주소를 할당시킴
+		//rhs.data = nullptr;			// 안해주면 delete가 일어남 (중복오류)
 		return *this;
 	}
 
 	int getDataValue() const { return *data; }						// return by value (복사도 가능 -> *data는 value이기 때문)
 	const unique_ptr<int>& getDataAddress() const { return data; }	// return by reference	(unique_ptr은 복사가 불가능)
-	void setData(int nParam) { *data = nParam; }				// data의 주소값은 안바뀌고 값만 바뀜
+	//int* getDataAddress() const { return data; }					// return by reference
+	void setData(int nParam) { *data = nParam; }					// data의 주소값은 안바뀌고 값만 바뀜
 
 };
 
@@ -69,6 +72,7 @@ int main()
 	cout << "b: " << b.getDataAddress() << endl;
 	
 	Test c{}; // 기본생성자 호출
+	cout << "c: " << c.getDataAddress() << endl;
 
 	b = a;	// b.operator=(a);	// 대입연산자 호출
 	c = std::move(b);			// 이동대입연산자 호출

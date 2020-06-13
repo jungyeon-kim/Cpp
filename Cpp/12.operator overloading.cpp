@@ -30,6 +30,8 @@ public:
 	{
 		return data < rhs.data;
 	}
+	// iostream에서 클래스 private멤버에 접근할 수 있도록 friend 선언
+	// 실제로 operator<<, operator>>는 friend이기에 클래스 멤버가 아니라 전역함수!
 	friend ostream& operator<<(ostream& os, const Test& rhs)
 	{
 		os << rhs.data;

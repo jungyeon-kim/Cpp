@@ -79,7 +79,6 @@ public:
 	void setData(int nParam) { *data = nParam; }
 };
 
-#include <vector>
 int main()
 {
 	Test a{};				// 기본생성자 호출

@@ -39,6 +39,7 @@ class Test	// final
 {
 public:
 	Test() { cout << "Test()" << endl; }
+	Test(int val) { cout << "Test(int val)" << endl; }
 	// 실형식의 소멸자가 불리는 것을 보장
 	virtual ~Test() { cout << "~Test()" << endl; }
 
@@ -50,7 +51,8 @@ public:
 class TestEx : public Test	// 99%는 public으로 상속
 {
 public:
-	TestEx() { cout << "TestEx()" << endl; }
+	// 부모가 Test(int val)를 호출하도록 명시적 선언
+	TestEx() : Test(1) { cout << "TestEx()" << endl; }
 	virtual ~TestEx() override { cout << "~TestEx()" << endl; }
 
 	virtual void testFunc() override { cout << "TestEx::testFunc()" << endl; }
