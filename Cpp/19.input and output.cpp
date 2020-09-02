@@ -22,5 +22,5 @@ int main()
 
 	in >> str;	// 문자열 str에 test.txt의 문자열을 입력한다.
 	out << str;	// str을 test.txt에 출력한다.
-	// 결론적으로 test.txt의 문자열이 출력될것이다.
+	//결론적으로 test.txt의 문자열이 출력될것이다.
 }

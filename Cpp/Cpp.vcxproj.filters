@@ -57,9 +57,6 @@
     <ClCompile Include="15.type and casting.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="19.input and output.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="16.using.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -81,7 +78,7 @@
     <ClCompile Include="22.smart pointer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="23.thread.cpp">
+    <ClCompile Include="19.input and output.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

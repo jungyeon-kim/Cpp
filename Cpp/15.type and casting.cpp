@@ -4,7 +4,7 @@ using namespace std;
 
 /*
 	typedef:	어떤 타입에 대한 별명을 만든다.
-	using:		typedef와 같은기능. (다음 파일에 추가 기능을 설명)
+	using:		typedef와 비슷한기능. (다음 파일에 추가 기능을 설명)
 */
 
 /*
@@ -15,10 +15,9 @@ using namespace std;
 	const_cast<>():			const특성을 없앤다.
 	reinterpret_cast<>():	관계가 상관없는 형변환 (전혀 관계가 없는 타입으로 캐스팅이 가능하기때문에 위험하다.)
 
-	※	다운캐스팅은 꼭 필요한 경우에만 사용하고 static_cast보다 dynamic_cast를 권장한다.
-	※	Reflection:	런타임에 객체의 정보를 가져온다.		(현재 c++에 없는 기능)
-					RTTI 보다 더 많은 기능을 제공			(런타임에 함수 생성 등)
-		RTTI:		c++에서의 Reflection 하위호환 기능	(dynamic_cast가 대표적 예)
+	※	Reflection:	런타임에 실시간으로 객체의 정보를 가져온다.		(현재 c++에 없는 기능)
+					RTTI 보다 더 많은 기능을 제공					(런타임에 함수 생성 등)
+		RTTI:		c++에서의 Reflection 하위호환 기능			(dynamic_cast가 대표적 예)
 					Reflection과 다르게 RTTI 옵션을 ON / OFF 가능	(메타데이터 생성의 오버헤드 때문)
 */
 
@@ -38,11 +37,6 @@ public:
 	~TestEx() {}
 
 	virtual void testFunc() override { cout << "TestEx" << endl; }
-};
-
-template <typename T>
-class Grid
-{
 };
 
 int main()
