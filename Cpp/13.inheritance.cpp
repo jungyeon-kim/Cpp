@@ -44,8 +44,8 @@ public:
 	// 실형식의 소멸자가 불리는 것을 보장
 	virtual ~Test() { cout << "~Test()" << endl; }
 
-	//virtual void testFunc() = 0;	// 순수가상함수
-	virtual void testFunc() { cout << "Test::testFunc()" << endl; }
+	//virtual void virtualFunc() = 0;	// 순수가상함수
+	virtual void virtualFunc() { cout << "Test::virtualFunc()" << endl; }
 };
 
 // 자식클래스
@@ -56,13 +56,13 @@ public:
 	TestEx() : Test(1) { cout << "TestEx()" << endl; }
 	virtual ~TestEx() override { cout << "~TestEx()" << endl; }
 
-	virtual void testFunc() override { cout << "TestEx::testFunc()" << endl; }
+	virtual void virtualFunc() override { cout << "TestEx::virtualFunc()" << endl; }
 };
 
 int main()
 {
 	//↓접근형식	↓실형식
 	Test* obj{ new TestEx };
-	obj->testFunc();
+	obj->virtualFunc();
 	delete obj;
 }

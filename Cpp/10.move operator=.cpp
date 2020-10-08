@@ -38,7 +38,7 @@ public:
 		//}
 	}
 
-	Test& operator=(const Test &rhs)		// 대입연산자
+	Test& operator=(const Test& rhs)		// 대입연산자
 	{
 		cout << "Test& operator=(const Test& rhs)" << endl;
 		if (this == &rhs) return *this;
@@ -47,7 +47,7 @@ public:
 		data = make_unique<int>(*rhs.data);
 		return *this;
 	}
-	Test& operator=(Test &&rhs) noexcept	// 이동대입연산자
+	Test& operator=(Test&& rhs) noexcept	// 이동대입연산자
 	{
 		cout << "Test& operator=(Test&& rhs)" << endl;
 		if (this == &rhs) return *this;

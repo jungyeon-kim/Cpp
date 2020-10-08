@@ -17,10 +17,10 @@ using namespace std;
 	임시객체	-	1. 함수 반환이나 연산과정에서 발생
 				2. 모두 r-value
 				3. 연산이 끝나면 자동 소멸
-				4. 임시객체를 참조할경우 참조자의 scope가
-					   닫힐 때까지 임시객체도 소멸안함
+				4. 임시객체를 참조할경우 참조자의 scope가 닫힐 때까지 임시객체도 소멸안함
 
 	※			std::move()는 객체를 r-value로 캐스팅해주는 것 일뿐, 객체를 소멸시킬순 없다.
+	※			임시객체를 레퍼런스나 포인터로 반환하는 것은 위험하다.
 */
 
 /*
@@ -45,30 +45,30 @@ class Test
 private:
 	int* data{};
 public:
-	Test() 
-	{ 
-		cout << "Test()" << endl; 
+	Test()
+	{
+		cout << "Test()" << endl;
 		data = new int{ 10 };
 	}
-	~Test() 
-	{ 
+	~Test()
+	{
 		cout << "~Test()" << endl;
 		if (data)
 		{
 			delete data;		// data가 nullptr이라면 해제동작을 건너뜀 (다른곳에서 잘처리해준다면 예외처리 필요x)
-			data = nullptr;
+			data = nullptr;		// 값이 아닌 주소변경이기에 얕은복사된 다른 data가 nullptr로 바뀌지 않음
 		}
 	}
-	Test(const Test &rhs)	// 복사생성자
+	Test(const Test& rhs)	// 복사생성자
 	{
 		cout << "Test(const Test& rhs)" << endl;
 		// 얕은복사			// 문제점	1. lhs의 메모리해제가 일어나면 rhs는 가리키는값이 사라짐 (댕글링포인터)
-		//data = rhs.data;	//			2. 소멸자에서 메모리해제 두번일어남 (오류)
+		//data = rhs.data;	//			2. 소멸자에서 메모리해제가 두번 일어남 (더블프리)
 		// 깊은복사
 		data = new int{ *rhs.data };	// data에 rhs.data의 '값'을 할당
 										// rhs.data = 주소값, *rhs.data = 값
 	}
-	Test(Test &&rhs) noexcept			// 이동생성자: 임시객체라는 점을 고려해 얕은복사를 하여 성능을 높이자.
+	Test(Test&& rhs) noexcept			// 이동생성자: 임시객체라는 점을 고려해 얕은복사를 하여 성능을 높이자.
 	{
 		cout << "Test(Test&& rhs)" << endl;
 		data = rhs.data;	// 얕은복사

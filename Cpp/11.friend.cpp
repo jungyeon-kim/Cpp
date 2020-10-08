@@ -16,7 +16,7 @@ public:
 	A() {}
 	~A() {}
 
-	friend void testFunc(A a);	// testFunc에게 나의 내부데이터 사용을 허락하겠다.
+	friend void virtualFunc(A a);	// testFunc에게 나의 내부데이터 사용을 허락하겠다.
 };
 
 class B
@@ -30,7 +30,7 @@ public:
 	int getaData(A obj) const { return obj.aData; }
 };
 
-void testFunc(A obj)
+void virtualFunc(A obj)
 {
 	cout << obj.aData << endl;
 }

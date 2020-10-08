@@ -11,7 +11,7 @@ using namespace std;
 	static_cast<>():		기본 형변환, 상속관계 형변환(up, down 가능)
 							컴파일에서 연산
 	dynamic_cast<>():		상속관계 형변환(up만 가능) -> 가상함수를 가지는 클래스는 down도 가능
-							런타임에서 연산 -> static_cast()보다 안정성↑ (캐스팅이 적합하지 않으면 에러를 발생)
+							런타임에서 연산 -> static_cast()보다 안정성↑ (캐스팅이 적합하지 않으면 null반환 or 예외발생)
 	const_cast<>():			const특성을 없앤다.
 	reinterpret_cast<>():	관계가 상관없는 형변환 (전혀 관계가 없는 타입으로 캐스팅이 가능하기때문에 위험하다.)
 
@@ -25,18 +25,20 @@ class Test
 {
 public:
 	Test() {}
-	~Test() {}
+	virtual ~Test() {}
 
-	virtual void testFunc() { cout << "Test" << endl; }
+	void commonFunc() { cout << "Test::commonFunc" << endl; }
+	virtual void virtualFunc() { cout << "Test::virtualFunc" << endl; }
 };
 
 class TestEx : public Test
 {
 public:
 	TestEx() {}
-	~TestEx() {}
+	virtual ~TestEx() {}
 
-	virtual void testFunc() override { cout << "TestEx" << endl; }
+	void commonFunc() { cout << "TestEx::commonFunc" << endl; }
+	virtual void virtualFunc() override { cout << "TestEx::virtualFunc" << endl; }
 };
 
 int main()
@@ -50,6 +52,12 @@ int main()
 	cout << data << endl;
 
 	// 상속관계 캐스팅
-	Test* obj1{};
+	Test* obj1{ new TestEx{} };						// Test로 할당하면, TestEx는 생성되지 않으므로 아래에서 다운캐스팅 불가
 	TestEx* obj2{ dynamic_cast<TestEx*>(obj1) };	// down casting
+	obj1->commonFunc();
+	obj2->commonFunc();
+	dynamic_cast<Test*>(obj2)->commonFunc();		// up casting (실형식을 캐스팅하므로 commonFunc는 변화O)
+	obj1->virtualFunc();
+	obj2->virtualFunc();
+	dynamic_cast<Test*>(obj2)->virtualFunc();		// up casting (실형식을 캐스팅하므로 virtualFunc는 변화X)
 }

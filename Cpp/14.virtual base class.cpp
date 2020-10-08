@@ -14,7 +14,7 @@ using namespace std;
 class A
 {
 public: 
-	void testFunc() { cout << "A::testFunc()" << endl; }
+	void virtualFunc() { cout << "A::virtualFunc()" << endl; }
 };
 
 class B : public virtual A {};
@@ -27,5 +27,5 @@ int main()
 {
 	D d{};
 
-	d.testFunc();
+	d.virtualFunc();
 }
