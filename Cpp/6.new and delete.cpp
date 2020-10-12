@@ -49,7 +49,7 @@ int main()
 
 	///////////////////////////////////////////////////////////////////////
 
-	Test* test{ new Test[Test::MAX] };
+	Test* test{ new Test[Test::MAX]{} };	// 동적할당 시, ()나 {}로 초기화해줄 것
 	
 	for (int i = 0; i < Test::MAX; ++i)
 		test[i].print();

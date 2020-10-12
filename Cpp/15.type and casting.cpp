@@ -8,12 +8,12 @@ using namespace std;
 */
 
 /*
-	static_cast<>():		기본 형변환, 상속관계 형변환(up, down 가능)
+	static_cast<>():		기본 형변환, 상속관계 형변환(up, down 가능) -> 다운캐스팅을 무조건 허용하므로 위험
 							컴파일에서 연산
 	dynamic_cast<>():		상속관계 형변환(up만 가능) -> 가상함수를 가지는 클래스는 down도 가능
-							런타임에서 연산 -> static_cast()보다 안정성↑ (캐스팅이 적합하지 않으면 null반환 or 예외발생)
+							런타임에서 연산 -> 캐스팅이 적합하지 않으면 null반환 (static_cast()보다 안정성↑)
 	const_cast<>():			const특성을 없앤다.
-	reinterpret_cast<>():	관계가 상관없는 형변환 (전혀 관계가 없는 타입으로 캐스팅이 가능하기때문에 위험하다.)
+	reinterpret_cast<>():	관계가 상관없는 형변환 ("포인터에 대하여" 전혀 관계가 없는 타입으로 캐스팅이 가능하기때문에 위험)
 
 	※	Reflection:	런타임에 실시간으로 객체의 정보를 가져온다.		(현재 c++에 없는 기능)
 					RTTI 보다 더 많은 기능을 제공					(런타임에 함수 생성 등)
@@ -47,13 +47,16 @@ int main()
 	using Myfloat = float;		// 추천
 
 	// 일반적인 캐스팅
-	Myfloat data{ 3.14 };
+	Myfloat data{ 3.14f };
 	cout << static_cast<int>(data) << endl;
 	cout << data << endl;
 
 	// 상속관계 캐스팅
-	Test* obj1{ new TestEx{} };						// Test로 할당하면, TestEx는 생성되지 않으므로 아래에서 다운캐스팅 불가
+	Test* obj1{ new TestEx{} };						// Test로 할당하면, TestEx는 생성되지 않으므로 다운캐스팅 불가
+													// 위 경우를 static_cast로 캐스팅하면 가능하지만, 
+													// 생성되지도 않은 자식의 멤버에 접근이 가능하기 때문에 위험
 	TestEx* obj2{ dynamic_cast<TestEx*>(obj1) };	// down casting
+
 	obj1->commonFunc();
 	obj2->commonFunc();
 	dynamic_cast<Test*>(obj2)->commonFunc();		// up casting (실형식을 캐스팅하므로 commonFunc는 변화O)

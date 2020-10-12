@@ -62,7 +62,7 @@ public:
 int main()
 {
 	//↓접근형식	↓실형식
-	Test* obj{ new TestEx };
+	Test* obj{ new TestEx{} };
 	obj->virtualFunc();
 	delete obj;
 }
