@@ -6,6 +6,7 @@ using namespace std;
 /*
 	unique_ptr: 자원을 독점 -> 복사가 불가능 (이동시맨틱이나 참조자(&)로 가능)
 	shared_ptr: 자원을 공유 -> reference count가 0이되면 객체가 자동으로 소멸
+				reference count는 atomic하게 동작한다.
 	weak_ptr:	자원을 공유 -> 참조만 할뿐 shared_ptr의 reference counting에 관여되지 않는다.
 				shared_ptr에 의존적이기 때문에 직접적으로 포인터에 접근할 수 없다. -> 자체적 생성, 대입 불가능
 
