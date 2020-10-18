@@ -34,7 +34,7 @@ public:
 	void print(E val);
 };
 
-// 절대로 아래 두 템플릿 매개변수를 같이 써서는 안되고 쓸수도 없다.
+// 절대로 아래 두 템플릿 매개변수를 한 곳에 같이 써서는 안되고 쓸수도 없다.
 template <typename T>
 template <typename E>
 void Test<T>::print(E val)
@@ -66,7 +66,7 @@ int main()
 	Test<const char*> t3{};
 
 	cout.precision(1024);
-	t1.print(pi<float>);	// 템플릿 매개변수 E를 추가해줌으로써 축소변환이 일어나지 않음
+	t1.print(pi<float>);	// 템플릿 매개변수 T가아닌 E를 사용함으로써 축소변환이 일어나지 않음
 	t2.print(pi<double>);	// 위와 동일
 	t3.print("hello");		// string형 외의 자료형 불가
 }
