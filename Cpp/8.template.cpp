@@ -64,7 +64,7 @@ int main()
 	Test<int> t1{};
 	Test<float> t2{};
 	Test<const char*> t3{};
-
+	
 	cout.precision(1024);
 	t1.print(pi<float>);	// 템플릿 매개변수 T가아닌 E를 사용함으로써 축소변환이 일어나지 않음
 	t2.print(pi<double>);	// 위와 동일

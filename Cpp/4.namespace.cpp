@@ -13,7 +13,9 @@ int val{};	// 무소속 변수
 
 int main()
 {
+	int val{};
 	test::val = 10;	// test:: -> test에 소속되었단 의미
-	::val = 5;	// :: -> 무소속이란 의미
-	std::cout << test::val << " " << ::val;
+	::val = 5;		// :: -> 무소속이란 의미
+
+	std::cout << test::val << " " << ::val << " " << val;
 }
