@@ -16,6 +16,6 @@ enum class Other { PLAYER };		// OK
 
 int main()
 {
-	int val{ PLAYER };				// OK
+	int val1{ PLAYER };				// OK
 	//int other{ Test::PLAYER };	// Error
 }

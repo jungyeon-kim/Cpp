@@ -81,6 +81,9 @@
     <ClCompile Include="19.input and output.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="23.callable type.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hearder.h">
