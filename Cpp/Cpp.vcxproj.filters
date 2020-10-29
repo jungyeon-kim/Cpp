@@ -87,6 +87,9 @@
     <ClCompile Include="24.call back.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="25.copy ellision.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hearder.h">
