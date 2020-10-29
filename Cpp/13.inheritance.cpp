@@ -7,9 +7,9 @@ using namespace std;
 						2. 규모 확장 / 개선
 						3. is-a 관계	(남자는 사람이다 O, 사람은 머리를 가지고있다 X)
 
-	상속접근지정자	-	private:	부모클래스의 protected, public 변수, 함수를 private로 상속
-						protected:	부모클래스의 public 변수, 함수를 protected로 상속
-						public:		부모클래스의 변수, 함수를 그대로 상속
+	상속접근지정자	-	private:	부모클래스의 protected, public 멤버를 private로 상속
+						protected:	부모클래스의 public 멤버를 protected로 상속
+						public:		부모클래스의 멤버를 그대로 상속
 
 	※ 자식에서 부모멤버 초기화 금지 -> 멤버변수는 웬만하면 private
 */
@@ -73,6 +73,7 @@ int main()
 {
 	// ↓접근형식	   ↓실형식
 	Test* obj{ new TestEx{} };				// up casting
+
 	obj->virtualFunc();
 	cout << typeid(*obj).name() << endl;	// 가상함수테이블이 없었다면, "class Test"가 출력된다.
 	delete obj;

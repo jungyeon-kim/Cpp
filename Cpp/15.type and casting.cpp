@@ -62,8 +62,8 @@ int main()
 	TestEx* obj2{ dynamic_cast<TestEx*>(obj1) };	// down casting
 	obj1->commonFunc();
 	obj2->commonFunc();
-	dynamic_cast<Test*>(obj2)->commonFunc();		// up casting (실형식을 캐스팅하므로 commonFunc는 변화O)
+	dynamic_cast<Test*>(obj2)->commonFunc();		// up casting (접근형식을 캐스팅하므로 commonFunc는 변화O)
 	obj1->virtualFunc();
 	obj2->virtualFunc();
-	dynamic_cast<Test*>(obj2)->virtualFunc();		// up casting (실형식을 캐스팅하므로 virtualFunc는 변화X)
+	dynamic_cast<Test*>(obj2)->virtualFunc();		// up casting (접근형식을 캐스팅하므로 virtualFunc는 변화X)
 }

@@ -10,26 +10,26 @@ using namespace std::chrono;
 // 함수포인터와 호출시간을 가지는 구조체
 struct Event
 {
-	function<void()> CallBack{};
-	high_resolution_clock::time_point WakeUpTime{};
+	function<void()> callBack{};
+	high_resolution_clock::time_point wakeUpTime{};
 
-	constexpr bool operator>(const Event& Rhs) const
+	constexpr bool operator>(const Event& rhs) const
 	{
-		return WakeUpTime > Rhs.WakeUpTime;
+		return wakeUpTime > rhs.wakeUpTime;
 	}
 };
 
 // Event 구조체를 가지는 우선순위 큐 자료구조 -> WakeUpTime이 작을수록 우선순위가 높음
-priority_queue<Event, vector<Event>, greater<Event>> TimerQueue;
+priority_queue<Event, vector<Event>, greater<Event>> timerQueue;
 
 // 타이머 큐에 이벤트 추가
-void AddTimerQueue(function<void()> CallBack, int Duration)
+void addTimerQueue(function<void()> callBack, int duration)
 {
-	Event Event{ CallBack, high_resolution_clock::now() + milliseconds{ Duration } };
-	TimerQueue.push(Event);
+	Event event{ callBack, high_resolution_clock::now() + milliseconds{ duration } };
+	timerQueue.push(event);
 }
 
-void TimerThread()
+void timerThread()
 {
 	while (true)
 	{
@@ -37,22 +37,20 @@ void TimerThread()
 
 		while (true)
 		{
-			if (TimerQueue.empty() || TimerQueue.top().WakeUpTime > high_resolution_clock::now()) break;
-
-			Event Event{ TimerQueue.top() };
-			TimerQueue.pop();
+			if (timerQueue.empty() || timerQueue.top().wakeUpTime > high_resolution_clock::now()) break;
 
 			//등록된 함수 호출
-			Event.CallBack();
+			timerQueue.top().callBack();
+			timerQueue.pop();
 		}
 	}
 }
 
 int main()
 {
-	AddTimerQueue([]() {cout << "call" << endl; }, 1000);
-	AddTimerQueue([]() {cout << "call" << endl; }, 2000);
-	AddTimerQueue([]() {cout << "call" << endl; }, 3000);
+	addTimerQueue([]() {cout << "call" << endl; }, 1000);
+	addTimerQueue([]() {cout << "call" << endl; }, 2000);
+	addTimerQueue([]() {cout << "call" << endl; }, 3000);
 
-	TimerThread();
+	timerThread();
 }

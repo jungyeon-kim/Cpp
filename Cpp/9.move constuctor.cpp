@@ -35,9 +35,9 @@ using namespace std;
 */
 
 /*
-	이동 시맨틱은 예외를 던질 수 없다.
-	벡터같은 STL 컨테이너의 경우 공간 재할당시에 이동을 하게되면 이전 공간의 데이터는 사라지기때문이다.
-	따라서, 이동 시맨틱에는 noexcept 키워드가 붙어야한다.
+	이동 시맨틱은 예외를 발생시킬 수 없기에 noexcept 키워드가 필요하다.
+	복사의 경우 예외가 발생하면 복사된 메모리를 소멸시키면 되지만, 
+	이동의 경우 이동된 메모리를 소멸시키면 기존의 메모리가 소멸되는 것이기 때문이다.
 */
 
 class Test
@@ -72,7 +72,7 @@ public:
 	{
 		cout << "Test(Test&& rhs)" << endl;
 		data = rhs.data;	// 얕은복사
-		rhs.data = nullptr;	// 안해주면 delete가 두번 일어남 (중복오류)
+		rhs.data = nullptr;	// 안해주면 delete가 두번 일어남 (더블프리)
 	}
 
 	const int* getData() const { return data; }	// return by address

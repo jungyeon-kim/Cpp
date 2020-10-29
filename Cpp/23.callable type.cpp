@@ -38,7 +38,7 @@ int main()
 	f2();
 	cout << "람다함수: " << typeid(f2).name() << endl;
 
-	// 3. 함수객체: ()연산자를 overloading한 클래스
+	// 3. 함수객체: ()연산자를 overloading한 클래스(== functor)
 	Dog dog{};
 	auto f3{ dog };
 	f3(3);
