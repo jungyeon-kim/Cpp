@@ -7,6 +7,8 @@
 using namespace std;
 using namespace std::chrono;
 
+// 함수포인터 기본타입:	void (*함수이름)(매개변수타입)
+
 // 함수포인터와 호출시간을 가지는 구조체
 struct Event
 {
