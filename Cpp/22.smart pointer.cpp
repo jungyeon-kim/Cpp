@@ -47,8 +47,12 @@ int main()
 	delete p;
 
 	// case 2
-	shared_ptr<Circular> cir{ make_shared<Circular>() };
-	cir->set(cir);	// 순환참조 유도
+	shared_ptr<Circular> cir1{ make_shared<Circular>() };
+	shared_ptr<Circular> cir2{ make_shared<Circular>() };
+	// 순환참조 유도
+	cir1->set(cir2);
+	cir2->set(cir1);
 
-	cout << "cir's ref count: " << cir.use_count() << endl;
+	cout << "cir1's ref count: " << cir1.use_count() << endl;
+	cout << "cir2's ref count: " << cir2.use_count() << endl;
 }
