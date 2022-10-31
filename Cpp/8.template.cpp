@@ -3,27 +3,27 @@
 using namespace std;
 
 /*
-	ÅÛÇÃ¸´:	Á¦³×¸¯ ÇÁ·Î±×·¥(Àç»ç¿ë °¡´ÉÇÑ ÄÚµå¸¦ ¸¸µå´Â °Í)ÀÇ ±âº»ÀûÀÎ µµ±¸
-			»ç¿ëÇÏÁö¾Ê´Â´Ù¸é ÄÚµå°¡ »ý¼º(ÅÛÇÃ¸´ ÀÎ½ºÅÏ½ºÈ­)µÇÁö ¾Ê´Â´Ù.
-			¹Ý´ë·Î "ÄÄÆÄÀÏÁß" »ç¿ëµÇ´Â ºÎºÐÀ» ¸¸³ª¸é ÄÚµå°¡ »ý¼ºµÈ´Ù.
-			°¡´ÉÇÏ´Ù¸é ÄÄÆÄÀÏ Å¸ÀÓ¿¡ ¿¬»êÇÑ´Ù. -> TMP
-			Á¤Àû ´ÙÇü¼ºÀÌ´Ù. (°¡»ó Å×ÀÌºíÀ» »ý¼ºÇÏÁö¾Ê´Â´Ù.)
+	í…œí”Œë¦¿:	ì œë„¤ë¦­ í”„ë¡œê·¸ëž¨(ìž¬ì‚¬ìš© ê°€ëŠ¥í•œ ì½”ë“œë¥¼ ë§Œë“œëŠ” ê²ƒ)ì˜ ê¸°ë³¸ì ì¸ ë„êµ¬
+			ì‚¬ìš©í•˜ì§€ì•ŠëŠ”ë‹¤ë©´ ì½”ë“œê°€ ìƒì„±(í…œí”Œë¦¿ ì¸ìŠ¤í„´ìŠ¤í™”)ë˜ì§€ ì•ŠëŠ”ë‹¤.
+			ë°˜ëŒ€ë¡œ "ì»´íŒŒì¼ì¤‘" ì‚¬ìš©ë˜ëŠ” ë¶€ë¶„ì„ ë§Œë‚˜ë©´ ì½”ë“œê°€ ìƒì„±ëœë‹¤.
+			ê°€ëŠ¥í•˜ë‹¤ë©´ ì»´íŒŒì¼ íƒ€ìž„ì— ì—°ì‚°í•œë‹¤. -> TMP
+			ì •ì  ë‹¤í˜•ì„±ì´ë‹¤. (ê°€ìƒ í…Œì´ë¸”ì„ ìƒì„±í•˜ì§€ì•ŠëŠ”ë‹¤.)
 
-	ÁÖÀÇÁ¡À» ¾Ë±â Àü¿¡)
-		ÇÁ·Î±×·¥ µ¿ÀÛ°úÁ¤:	ÀüÃ³¸® -> ÄÄÆÄÀÏ -> ¸µÅ©
-		ÀüÃ³¸®:				ÄÄÆÄÀÏÀü ¼öÇàµÇ´Â ÀÛ¾÷ (include´Â ÇØ´ç Çì´õ·Î Ä¡È¯µÇ°í, defineÀº ÇØ´ç Á¤ÀÇ·Î Ä¡È¯µÊ)
-		CÄÄÆÄÀÏ:				ÄÚµå¸¦ ¾î¼Àºí¸®¾î·Î ¹ø¿ª
-		¾î¼ÀºíÄÄÆÄÀÏ:			¾î¼Àºí¸®¾î¸¦ ±â°è¾î·Î ¹ø¿ªÇÑ ¿ÀºêÁ§Æ®ÆÄÀÏ »ý¼º
-		¸µÅ©:				°¢°¢ÀÇ ¿ÀºêÁ§Æ® ÆÄÀÏµéÀ» ¿¬°á½ÃÄÑ ½ÇÇàÆÄÀÏÀ» »ý¼º
-		ÄÄÆÄÀÏÅ¸ÀÓ:			ÄÚµå, ½ºÅÃ, µ¥ÀÌÅÍ ¿µ¿ªÀÇ Å©±â °áÁ¤
-		·±Å¸ÀÓ:				Èü ¿µ¿ªÀÇ Å©±â °áÁ¤
+	ì£¼ì˜ì ì„ ì•Œê¸° ì „ì—)
+		í”„ë¡œê·¸ëž¨ ë™ìž‘ê³¼ì •:	ì „ì²˜ë¦¬ -> ì»´íŒŒì¼ -> ë§í¬
+		ì „ì²˜ë¦¬:				ì»´íŒŒì¼ì „ ìˆ˜í–‰ë˜ëŠ” ìž‘ì—… (includeëŠ” í•´ë‹¹ í—¤ë”ë¡œ ì¹˜í™˜ë˜ê³ , defineì€ í•´ë‹¹ ì •ì˜ë¡œ ì¹˜í™˜ë¨)
+		Cì»´íŒŒì¼:				ì½”ë“œë¥¼ ì–´ì…ˆë¸”ë¦¬ì–´ë¡œ ë²ˆì—­ (.h ìžì²´ë¥¼ ì»´íŒŒì¼í•˜ëŠ”ê²Œ ì•„ë‹ˆë¼ .cppì™€ ê·¸ê³³ì— includeëœ í—¤ë”ë¥¼ ì»´íŒŒì¼í•˜ëŠ” ê²ƒìž„)
+		ì–´ì…ˆë¸”ì»´íŒŒì¼:			ì–´ì…ˆë¸”ë¦¬ì–´ë¥¼ ê¸°ê³„ì–´ë¡œ ë²ˆì—­í•œ ì˜¤ë¸Œì íŠ¸íŒŒì¼ ìƒì„±
+		ë§í¬:				ê°ê°ì˜ ì˜¤ë¸Œì íŠ¸ íŒŒì¼ë“¤ì„ ì—°ê²°ì‹œì¼œ ì‹¤í–‰íŒŒì¼ì„ ìƒì„±
+		ì»´íŒŒì¼íƒ€ìž„:			ì½”ë“œ, ìŠ¤íƒ, ë°ì´í„° ì˜ì—­ì˜ í¬ê¸° ê²°ì •
+		ëŸ°íƒ€ìž„:				íž™ ì˜ì—­ì˜ í¬ê¸° ê²°ì •
 
-	ÁÖÀÇÁ¡)
-	¡Ø	¹«ºÐº°ÇÑ ÅÛÇÃ¸´ÀÇ ³²¿ëÀº À§ÇèÀ» ÃÊ·¡ÇÑ´Ù.
-		¿À·ù ³»¿ëÀÌ »ó´ëÀûÀ¸·Î Ãß»óÀûÀÌ¾î¼­ µð¹ö±ëÀÌ Èûµé¾îÁú»Ó´õ·¯,
-		TMP°°Àº °æ¿ì ÄÄÆÄÀÏ Å¸ÀÓ¿¡ ¼ö¸¹Àº ÄÚµå¸¦ »ý¼ºÇÏ°í ¿¬»êÇÏ±â ¶§¹®¿¡ ÄÄÆÄÀÏ ½Ã°£ÀÌ »ó´ëÀûÀ¸·Î ´õ ±æ¾îÁø´Ù.
-	¡Ø	¼±¾ð°ú Á¤ÀÇ°¡ ÇÑ°÷¿¡ µé¾î°¡ ÀÖ¾î¾ßÇÑ´Ù.
-		ÄÄÆÄÀÏÁß »ç¿ëµÇ´Â ºÎºÐÀ» ¸¸³ª¸é ÇØ´ç ÄÚµå°¡ »ý¼ºµÇ¾î¾ß ÇÏ´Âµ¥, ÀÌ ¶§ ÇüÅÂ¸¦ ¾Ë°í ÀÖ¾î¾ßÇÏ±â ¶§¹®ÀÌ´Ù.
+	ì£¼ì˜ì )
+	â€»	ë¬´ë¶„ë³„í•œ í…œí”Œë¦¿ì˜ ë‚¨ìš©ì€ ìœ„í—˜ì„ ì´ˆëž˜í•œë‹¤.
+		ì˜¤ë¥˜ ë‚´ìš©ì´ ìƒëŒ€ì ìœ¼ë¡œ ì¶”ìƒì ì´ì–´ì„œ ë””ë²„ê¹…ì´ íž˜ë“¤ì–´ì§ˆë¿ë”ëŸ¬,
+		TMPê°™ì€ ê²½ìš° ì»´íŒŒì¼ íƒ€ìž„ì— ìˆ˜ë§Žì€ ì½”ë“œë¥¼ ìƒì„±í•˜ê³  ì—°ì‚°í•˜ê¸° ë•Œë¬¸ì— ì»´íŒŒì¼ ì‹œê°„ì´ ìƒëŒ€ì ìœ¼ë¡œ ë” ê¸¸ì–´ì§„ë‹¤.
+	â€»	ì„ ì–¸ê³¼ ì •ì˜ê°€ í•œê³³ì— ë“¤ì–´ê°€ ìžˆì–´ì•¼í•œë‹¤.
+		ì»´íŒŒì¼ì¤‘ ì‚¬ìš©ë˜ëŠ” ë¶€ë¶„ì„ ë§Œë‚˜ë©´ í•´ë‹¹ ì½”ë“œê°€ ìƒì„±ë˜ì–´ì•¼ í•˜ëŠ”ë°, ì´ ë•Œ í˜•íƒœë¥¼ ì•Œê³  ìžˆì–´ì•¼í•˜ê¸° ë•Œë¬¸ì´ë‹¤.
 */
 
 template <typename T>
@@ -34,7 +34,7 @@ public:
 	void print(E val);
 };
 
-// Àý´ë·Î ¾Æ·¡ µÎ ÅÛÇÃ¸´ ¸Å°³º¯¼ö¸¦ ÇÑ °÷¿¡ °°ÀÌ ½á¼­´Â ¾ÈµÇ°í ¾µ¼öµµ ¾ø´Ù.
+// ì ˆëŒ€ë¡œ ì•„ëž˜ ë‘ í…œí”Œë¦¿ ë§¤ê°œë³€ìˆ˜ë¥¼ í•œ ê³³ì— ê°™ì´ ì¨ì„œëŠ” ì•ˆë˜ê³  ì“¸ìˆ˜ë„ ì—†ë‹¤.
 template <typename T>
 template <typename E>
 void Test<T>::print(E val)
@@ -42,9 +42,9 @@ void Test<T>::print(E val)
 	cout << val << endl;
 }
 
-// ÅÛÇÃ¸´ Æ¯¼öÈ­
+// í…œí”Œë¦¿ íŠ¹ìˆ˜í™”
 template<>
-class Test<const char*>		// const char* Å¸ÀÔ¿¡ ÇÑÇØ¼­´Â print()ÀÇ ¸Å°³º¯¼ö·Î stringÇü¸¸ ¾´´Ù.
+class Test<const char*>		// const char* íƒ€ìž…ì— í•œí•´ì„œëŠ” print()ì˜ ë§¤ê°œë³€ìˆ˜ë¡œ stringí˜•ë§Œ ì“´ë‹¤.
 {
 public:
 	void print(string str);
@@ -55,7 +55,7 @@ void Test<const char*>::print(string str)
 	cout << str << endl;
 }
 
-// ÅÛÇÃ¸´ º¯¼ö
+// í…œí”Œë¦¿ ë³€ìˆ˜
 template <typename T>
 constexpr T pi{ 3.141592 };
 
@@ -66,7 +66,7 @@ int main()
 	Test<const char*> t3{};
 	
 	cout.precision(1024);
-	t1.print(pi<float>);	// ÅÛÇÃ¸´ ¸Å°³º¯¼ö T°¡¾Æ´Ñ E¸¦ »ç¿ëÇÔÀ¸·Î½á Ãà¼Òº¯È¯ÀÌ ÀÏ¾î³ªÁö ¾ÊÀ½
-	t2.print(pi<double>);	// À§¿Í µ¿ÀÏ
-	t3.print("hello");		// stringÇü ¿ÜÀÇ ÀÚ·áÇü ºÒ°¡
+	t1.print(pi<float>);	// í…œí”Œë¦¿ ë§¤ê°œë³€ìˆ˜ Tê°€ì•„ë‹Œ Eë¥¼ ì‚¬ìš©í•¨ìœ¼ë¡œì¨ ì¶•ì†Œë³€í™˜ì´ ì¼ì–´ë‚˜ì§€ ì•ŠìŒ
+	t2.print(pi<double>);	// ìœ„ì™€ ë™ì¼
+	t3.print("hello");		// stringí˜• ì™¸ì˜ ìžë£Œí˜• ë¶ˆê°€
 }
