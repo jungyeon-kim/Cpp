@@ -3,66 +3,66 @@
 using namespace std;
 
 /*
-	»ó¼Ó				-	1. ÄÚµå¸¦ Àç»ç¿ëÇÏ´Â ¹æ¹ý
-						2. ±Ô¸ð È®Àå / °³¼±
-						3. is-a °ü°è	(³²ÀÚ´Â »ç¶÷ÀÌ´Ù O, »ç¶÷Àº ¸Ó¸®¸¦ °¡Áö°íÀÖ´Ù X)
+	ìƒì†				-	1. ì½”ë“œë¥¼ ìž¬ì‚¬ìš©í•˜ëŠ” ë°©ë²•
+						2. ê·œëª¨ í™•ìž¥ / ê°œì„ 
+						3. is-a ê´€ê³„	(ë‚¨ìžëŠ” ì‚¬ëžŒì´ë‹¤ O, ì‚¬ëžŒì€ ë¨¸ë¦¬ë¥¼ ê°€ì§€ê³ ìžˆë‹¤ X)
 
-	»ó¼ÓÁ¢±ÙÁöÁ¤ÀÚ	-	private:	ºÎ¸ðÅ¬·¡½ºÀÇ protected, public ¸â¹ö¸¦ private·Î »ó¼Ó
-						protected:	ºÎ¸ðÅ¬·¡½ºÀÇ public ¸â¹ö¸¦ protected·Î »ó¼Ó
-						public:		ºÎ¸ðÅ¬·¡½ºÀÇ ¸â¹ö¸¦ ±×´ë·Î »ó¼Ó
+	ìƒì†ì ‘ê·¼ì§€ì •ìž	-	private:	ë¶€ëª¨í´ëž˜ìŠ¤ì˜ protected, public ë©¤ë²„ë¥¼ privateë¡œ ìƒì†
+						protected:	ë¶€ëª¨í´ëž˜ìŠ¤ì˜ public ë©¤ë²„ë¥¼ protectedë¡œ ìƒì†
+						public:		ë¶€ëª¨í´ëž˜ìŠ¤ì˜ ë©¤ë²„ë¥¼ ê·¸ëŒ€ë¡œ ìƒì†
 
-	¡Ø ÀÚ½Ä¿¡¼­ ºÎ¸ð¸â¹ö ÃÊ±âÈ­ ±ÝÁö -> ¸â¹öº¯¼ö´Â À¢¸¸ÇÏ¸é private
+	â€» ìžì‹ì—ì„œ ë¶€ëª¨ë©¤ë²„ ì´ˆê¸°í™” ê¸ˆì§€ -> ë©¤ë²„ë³€ìˆ˜ëŠ” ì›¬ë§Œí•˜ë©´ private
 */
 
 /*
-	Á¤Àû ¹ÙÀÎµù		-	È£ÃâÇÒ ÇÔ¼ö°¡ ÄÄÆÄÀÏÅ¸ÀÓ¿¡ °áÁ¤µÇ´Â °Í
-	µ¿Àû ¹ÙÀÎµù		-	È£ÃâÇÒ ÇÔ¼ö°¡ ·±Å¸ÀÓ¿¡ °áÁ¤µÇ´Â °Í
+	ì •ì  ë°”ì¸ë”©		-	í˜¸ì¶œí•  í•¨ìˆ˜ê°€ ì»´íŒŒì¼íƒ€ìž„ì— ê²°ì •ë˜ëŠ” ê²ƒ
+	ë™ì  ë°”ì¸ë”©		-	í˜¸ì¶œí•  í•¨ìˆ˜ê°€ ëŸ°íƒ€ìž„ì— ê²°ì •ë˜ëŠ” ê²ƒ
 
-	°¡»óÇÔ¼ö			-	µ¿Àû¹ÙÀÎµù ÇÔ¼ö (´ÙÇü¼ºÀÇ ÇÙ½É)
-	¼ø¼ö°¡»óÇÔ¼ö		-	Á¤ÀÇ ¾øÀÌ ¼±¾ð¸¸ ÀÖ´Â °¡»óÇÔ¼ö (Á¤ÀÇ°¡ °¡´ÉÇÏÁö¸¸, ÀÇ¹Ì°¡ ¾øÀ½)
-						ºÎ¸ð¿¡ ¼ø¼ö°¡»óÇÔ¼ö°¡ ÀÖÀ¸¸é ÀÚ½Ä¿¡ ¹«Á¶°Ç ¿À¹ö¶óÀÌµùµÇ¾î¾ßÇÔ
-						¼ø¼ö°¡»óÇÔ¼ö°¡ Á¸ÀçÇÏ´Â Å¬·¡½º(Ãß»óÅ¬·¡½º, ÀÎÅÍÆäÀÌ½º)´Â °´Ã¼¸¦ »ý¼ºÇÒ ¼ö ¾øÀ½, Ä³½ºÆÃµµ ºÒ°¡
-	°¡»óÇÔ¼öÅ×ÀÌºí	-	ÇÏ³ª ÀÌ»óÀÇ °¡»óÇÔ¼ö°¡ Á¸ÀçÇÏ´Â Å¬·¡½º¿¡¼­´Â ÄÄÆÄÀÏÅ¸ÀÓ¿¡ vtableÀ» »ý¼ºÇØ 
-						·±Å¸ÀÓ¿¡ ¿Ã¹Ù¸¥ Å¸ÀÔ(½ÇÇü½Ä)ÀÇ ÇÔ¼ö°¡ ½ÇÇàµÇµµ·Ï ÇÑ´Ù. (°¢ Å¬·¡½º¸¶´Ù »ý¼º)
-						°´Ã¼¿¡ vtableÀ» °¡¸®Å°´Â vptrÀ» »ý¼ºÇÑ´Ù.
-						½ÇÇü½Ä¿¡ ´ëÇÑ RTTI°¡ vtable¿¡ ÀúÀåµÈ´Ù.
+	ê°€ìƒí•¨ìˆ˜			-	ë™ì ë°”ì¸ë”© í•¨ìˆ˜ (ë‹¤í˜•ì„±ì˜ í•µì‹¬)
+	ìˆœìˆ˜ê°€ìƒí•¨ìˆ˜		-	ì •ì˜ ì—†ì´ ì„ ì–¸ë§Œ ìžˆëŠ” ê°€ìƒí•¨ìˆ˜ (ì •ì˜ê°€ ê°€ëŠ¥í•˜ì§€ë§Œ, ì˜ë¯¸ê°€ ì—†ìŒ)
+						ë¶€ëª¨ì— ìˆœìˆ˜ê°€ìƒí•¨ìˆ˜ê°€ ìžˆìœ¼ë©´ ìžì‹ì— ë¬´ì¡°ê±´ ì˜¤ë²„ë¼ì´ë”©ë˜ì–´ì•¼í•¨
+						ìˆœìˆ˜ê°€ìƒí•¨ìˆ˜ê°€ ì¡´ìž¬í•˜ëŠ” í´ëž˜ìŠ¤(ì¶”ìƒí´ëž˜ìŠ¤, ì¸í„°íŽ˜ì´ìŠ¤)ëŠ” ê°ì²´ë¥¼ ìƒì„±í•  ìˆ˜ ì—†ìŒ, ìºìŠ¤íŒ…ë„ ë¶ˆê°€
+	ê°€ìƒí•¨ìˆ˜í…Œì´ë¸”	-	í•˜ë‚˜ ì´ìƒì˜ ê°€ìƒí•¨ìˆ˜ê°€ ì¡´ìž¬í•˜ëŠ” í´ëž˜ìŠ¤ì—ì„œëŠ” ì»´íŒŒì¼íƒ€ìž„ì— vtableì„ ìƒì„±í•´ 
+						ëŸ°íƒ€ìž„ì— ì˜¬ë°”ë¥¸ íƒ€ìž…(ì‹¤í˜•ì‹)ì˜ í•¨ìˆ˜ê°€ ì‹¤í–‰ë˜ë„ë¡ í•œë‹¤. (ê° í´ëž˜ìŠ¤ë§ˆë‹¤ ìƒì„±)
+						ê°ì²´ì— vtableì„ ê°€ë¦¬í‚¤ëŠ” vptrì„ ìƒì„±í•œë‹¤.
+						ì‹¤í˜•ì‹ì— ëŒ€í•œ RTTIê°€ vtableì— ì €ìž¥ëœë‹¤.
 
-	¡Ø	ÀÏ¹ÝÇÔ¼ö´Â Á¢±ÙÇü½Ä, °¡»óÇÔ¼ö´Â ½ÇÇü½ÄÀ» µû¸¥´Ù.
-	¡Ø	»ó¼Ó°ü°è¿¡¼­ ¼Ò¸êÀÚ´Â °¡»óÇÔ¼ö¿©¾ßÇÑ´Ù. ±×·¸Áö¾ÊÀ¸¸é, Á¢±ÙÇü½ÄÀÇ ¼Ò¸êÀÚ¸¸ ºÒ¸®°ÔµÇ¾î ¸Þ¸ð¸®¸¯ÀÌ ¹ß»ýÇÒ ¼ö ÀÖ´Ù.
-		½ÇÇü½ÄÀÇ ¼Ò¸êÀÚºÎÅÍ Â÷·Ê´ë·Î »ó¼Ó°èÃþÀ» ¿Ã¶ó°¡¸ç ¼Ò¸êÀÚ°¡ È£ÃâµÈ´Ù.
-	¡Ø	ºÎ¸ð¿¡¸¸ virtual Å°¿öµå°¡ ÀÖ¾îµµ Àß µ¿ÀÛµÇÁö¸¸, È®½ÇÈ÷ÇÏ±âÀ§ÇØ ÀÚ½Ä¿¡µµ virtual Å°¿öµå¸¦ ¼±¾ðÇÏ°í,
-		override Å°¿öµå±îÁö ¼±¾ðÇØÁÖ´Â°Ô ÁÁ´Ù.
-	¡Ø	static ÇÔ¼ö´Â Å¬·¡½º ¸â¹ö°¡ ¾Æ´Ï±â¶§¹®¿¡ ¿À¹ö¶óÀÌµùÇÒ ¼ö ¾ø´Ù. (= °¡»óÇÔ¼ö°¡ µÉ ¼ö ¾ø´Ù.)
-	¡Ø	ºÎ¸ð¿¡ ¿À¹ö·ÎµùµÈ ÇÔ¼ö°¡ ÇÏ³ª¶óµµ ÀÚ½Ä¿¡ ÀçÁ¤ÀÇ µÇ¾îÀÖ´Ù¸é,
-		ÀÚ½Ä¿¡ ÀçÁ¤ÀÇµÇÁö¾ÊÀº ºÎ¸ðÀÇ ¿À¹ö·ÎµùµÈ ÇÔ¼ö´Â "Á¢±ÙÇü½ÄÀÌ ÀÚ½ÄÀÎ" °´Ã¼¿¡¼­ Á¢±ÙÇÒ ¼ö ¾ø´Ù.
-		(ºÎ¸ð·Î ¾÷Ä³½ºÆÃÇÏ°Å³ª, Á¢±ÙÇü½ÄÀÌ ºÎ¸ð¶ó¸é °¡´ÉÇÏ´Ù.)
+	â€»	ì¼ë°˜í•¨ìˆ˜ëŠ” ì ‘ê·¼í˜•ì‹, ê°€ìƒí•¨ìˆ˜ëŠ” ì‹¤í˜•ì‹ì„ ë”°ë¥¸ë‹¤.
+	â€»	ìƒì†ê´€ê³„ì—ì„œ ì†Œë©¸ìžëŠ” ê°€ìƒí•¨ìˆ˜ì—¬ì•¼í•œë‹¤. ê·¸ë ‡ì§€ì•Šìœ¼ë©´, ì ‘ê·¼í˜•ì‹ì˜ ì†Œë©¸ìžë§Œ ë¶ˆë¦¬ê²Œë˜ì–´ ë©”ëª¨ë¦¬ë¦­ì´ ë°œìƒí•  ìˆ˜ ìžˆë‹¤.
+		 ë¹„ê°€ìƒì†Œë©¸ìžëŠ” ì ‘ê·¼í˜•ì‹ì˜, ê°€ìƒì†Œë©¸ìžëŠ” ì‹¤í˜•ì‹ì˜ ì†Œë©¸ìžë¶€í„° ì°¨ë¡€ëŒ€ë¡œ ìƒì†ê³„ì¸µì„ ì˜¬ë¼ê°€ë©° ì†Œë©¸ìžê°€ í˜¸ì¶œëœë‹¤.
+	â€»	ë¶€ëª¨ì—ë§Œ virtual í‚¤ì›Œë“œê°€ ìžˆì–´ë„ ìž˜ ë™ìž‘ë˜ì§€ë§Œ, í™•ì‹¤ížˆí•˜ê¸°ìœ„í•´ ìžì‹ì—ë„ virtual í‚¤ì›Œë“œë¥¼ ì„ ì–¸í•˜ê³ ,
+		override í‚¤ì›Œë“œê¹Œì§€ ì„ ì–¸í•´ì£¼ëŠ”ê²Œ ì¢‹ë‹¤.
+	â€»	static í•¨ìˆ˜ëŠ” í´ëž˜ìŠ¤ ë©¤ë²„ê°€ ì•„ë‹ˆê¸°ë•Œë¬¸ì— ì˜¤ë²„ë¼ì´ë”©í•  ìˆ˜ ì—†ë‹¤. (= ê°€ìƒí•¨ìˆ˜ê°€ ë  ìˆ˜ ì—†ë‹¤.)
+	â€»	ë¶€ëª¨ì— ì˜¤ë²„ë¡œë”©ëœ í•¨ìˆ˜ê°€ í•˜ë‚˜ë¼ë„ ìžì‹ì— ìž¬ì •ì˜ ë˜ì–´ìžˆë‹¤ë©´,
+		ìžì‹ì— ìž¬ì •ì˜ë˜ì§€ì•Šì€ ë¶€ëª¨ì˜ ì˜¤ë²„ë¡œë”©ëœ í•¨ìˆ˜ëŠ” "ì ‘ê·¼í˜•ì‹ì´ ìžì‹ì¸" ê°ì²´ì—ì„œ ì ‘ê·¼í•  ìˆ˜ ì—†ë‹¤.
+		(ë¶€ëª¨ë¡œ ì—…ìºìŠ¤íŒ…í•˜ê±°ë‚˜, ì ‘ê·¼í˜•ì‹ì´ ë¶€ëª¨ë¼ë©´ ê°€ëŠ¥í•˜ë‹¤.)
 */
 
 /*
-	virtual		-	ÇØ´ç ÇÔ¼ö¸¦ "°¡»óÈ­"½ÃÅ²´Ù.
-	override	-	ÇØ´ç ÇÔ¼ö°¡ ¿À¹ö¶óÀÌµùµÈ °ÍÀÌ ¾Æ´Ï¶ó¸é ¿À·ù¸¦ ¹ß»ý½ÃÅ´
-	final		-	1. °¡»óÇÔ¼ö ÀçÁ¤ÀÇ ¹æÁö
-					2. »ó¼Ó ºÒ°¡´ÉÇÑ Å¬·¡½º ÁöÁ¤
+	virtual		-	í•´ë‹¹ í•¨ìˆ˜ë¥¼ "ê°€ìƒí™”"ì‹œí‚¨ë‹¤.
+	override	-	í•´ë‹¹ í•¨ìˆ˜ê°€ ì˜¤ë²„ë¼ì´ë”©ëœ ê²ƒì´ ì•„ë‹ˆë¼ë©´ ì˜¤ë¥˜ë¥¼ ë°œìƒì‹œí‚´
+	final		-	1. ê°€ìƒí•¨ìˆ˜ ìž¬ì •ì˜ ë°©ì§€
+					2. ìƒì† ë¶ˆê°€ëŠ¥í•œ í´ëž˜ìŠ¤ ì§€ì •
 */
 
-// ºÎ¸ðÅ¬·¡½º
+// ë¶€ëª¨í´ëž˜ìŠ¤
 class Test	// final
 {
 public:
 	Test() { cout << "Test()" << endl; }
 	Test(int val) { cout << "Test(int val)" << endl; }
-	// »ó¼Ó°ü°è¿¡ ÀÖ´Â Å¬·¡½ºÀÇ ¸ðµç ¼Ò¸êÀÚ°¡ ºÒ¸®´Â °ÍÀ» º¸Àå
+	// ìƒì†ê´€ê³„ì— ìžˆëŠ” í´ëž˜ìŠ¤ì˜ ëª¨ë“  ì†Œë©¸ìžê°€ ë¶ˆë¦¬ëŠ” ê²ƒì„ ë³´ìž¥
 	virtual ~Test() { cout << "~Test()" << endl; }
 
-	//virtual void virtualFunc() = 0;	// ¼ø¼ö°¡»óÇÔ¼ö
+	//virtual void virtualFunc() = 0;	// ìˆœìˆ˜ê°€ìƒí•¨ìˆ˜
 	virtual void virtualFunc() { cout << "Test::virtualFunc()" << endl; }
 };
 
-// ÀÚ½ÄÅ¬·¡½º
-class TestEx : public Test	// 99%´Â publicÀ¸·Î »ó¼Ó
+// ìžì‹í´ëž˜ìŠ¤
+class TestEx : public Test	// 99%ëŠ” publicìœ¼ë¡œ ìƒì†
 {
 public:
-	// ºÎ¸ð°¡ Test(int val)¸¦ È£ÃâÇÏµµ·Ï ¸í½ÃÀû ¼±¾ð
+	// ë¶€ëª¨ê°€ Test(int val)ë¥¼ í˜¸ì¶œí•˜ë„ë¡ ëª…ì‹œì  ì„ ì–¸
 	TestEx() : Test{ 1 } { cout << "TestEx()" << endl; }
 	virtual ~TestEx() override  { cout << "~TestEx()" << endl; }
 
@@ -71,10 +71,10 @@ public:
 
 int main()
 {
-	// ¡éÁ¢±ÙÇü½Ä	   ¡é½ÇÇü½Ä
+	// â†“ì ‘ê·¼í˜•ì‹	   â†“ì‹¤í˜•ì‹
 	Test* obj{ new TestEx{} };				// up casting
 
 	obj->virtualFunc();
-	cout << typeid(*obj).name() << endl;	// °¡»óÇÔ¼öÅ×ÀÌºíÀÌ ¾ø¾ú´Ù¸é, "class Test"°¡ Ãâ·ÂµÈ´Ù.
+	cout << typeid(*obj).name() << endl;	// ê°€ìƒí•¨ìˆ˜í…Œì´ë¸”ì´ ì—†ì—ˆë‹¤ë©´, "class Test"ê°€ ì¶œë ¥ëœë‹¤.
 	delete obj;
 }
