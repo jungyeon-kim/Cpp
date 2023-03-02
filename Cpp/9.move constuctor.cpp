@@ -3,41 +3,44 @@
 using namespace std;
 
 /*
-	»ý¼ºÀÚ	-	1. ±âº» »ý¼ºÀÚ
-				2. ´ÙÁß Á¤ÀÇµÈ »ý¼ºÀÚ
-				3. º¹»ç »ý¼ºÀÚ
-						±íÀºº¹»ç: °ªÀ» º¹»ç
-				4. ÀÌµ¿ »ý¼ºÀÚ
-						¾èÀºº¹»ç: ÁÖ¼Ò¸¦ º¹»ç
-						r-value ÂüÁ¶ÀÇ µµÀÔÀ¸·Î ÀÓ½Ã°´Ã¼¿¡ ÇÑÇØ¼­ ¾èÀºº¹»ç¸¦ ¼öÇà
-						ÀÓ½Ã°´Ã¼´Â const &º¸´Ù &&ÀÌ ¿ì¼±¼øÀ§±â ¶§¹®¿¡ ÀÌµ¿»ý¼ºÀÚ°¡ ºÒ¸²
+	ìƒì„±ìž	-	1. ê¸°ë³¸ ìƒì„±ìž
+				2. ë‹¤ì¤‘ ì •ì˜ëœ ìƒì„±ìž
+				3. ë³µì‚¬ ìƒì„±ìž
+						ê¹Šì€ë³µì‚¬: ê°’ì„ ë³µì‚¬
+				4. ì´ë™ ìƒì„±ìž
+						ì–•ì€ë³µì‚¬: ì£¼ì†Œë¥¼ ë³µì‚¬
+						r-value ì°¸ì¡°ì˜ ë„ìž…ìœ¼ë¡œ ìž„ì‹œê°ì²´ì— í•œí•´ì„œ ì–•ì€ë³µì‚¬ë¥¼ ìˆ˜í–‰
+						ìž„ì‹œê°ì²´ëŠ” const &ë³´ë‹¤ &&ì´ ìš°ì„ ìˆœìœ„ê¸° ë•Œë¬¸ì— ì´ë™ìƒì„±ìžê°€ ë¶ˆë¦¼
 */
 
 /*
-	ÀÓ½Ã°´Ã¼  -	1. ÇÔ¼ö ³» Áö¿ªº¯¼ö ¼±¾ðÀÌ³ª ¿¬»ê°úÁ¤¿¡¼­ ¹ß»ý
-				2. ¸ðµÎ r-value
-				3. ¿¬»êÀÌ ³¡³ª¸é ÀÚµ¿ ¼Ò¸ê
-				4. ÀÓ½Ã°´Ã¼¸¦ ÂüÁ¶ÇÒ°æ¿ì ÂüÁ¶ÀÚÀÇ scope°¡ ´ÝÈú ¶§±îÁö ÀÓ½Ã°´Ã¼µµ ¼Ò¸ê¾ÈÇÔ
+	ìž„ì‹œê°ì²´  -	1. í•¨ìˆ˜ ë‚´ ì§€ì—­ë³€ìˆ˜ ì„ ì–¸ì´ë‚˜ ì—°ì‚°ê³¼ì •ì—ì„œ ë°œìƒ
+				2. ëª¨ë‘ r-value
+				3. ì—°ì‚°ì´ ëë‚˜ë©´ ìžë™ ì†Œë©¸
+				4. ìž„ì‹œê°ì²´ë¥¼ ì°¸ì¡°í• ê²½ìš° ì°¸ì¡°ìžì˜ scopeê°€ ë‹«íž ë•Œê¹Œì§€ ìž„ì‹œê°ì²´ë„ ì†Œë©¸ì•ˆí•¨
 
-	¡Ø			std::move()´Â °´Ã¼¸¦ r-value·Î Ä³½ºÆÃÇØÁÖ´Â °Í ÀÏ»Ó, °´Ã¼¸¦ ¼Ò¸ê½ÃÅ³¼ø ¾ø´Ù.
-	¡Ø			ÀÓ½Ã°´Ã¼¸¦ ·¹ÆÛ·±½º³ª Æ÷ÀÎÅÍ·Î ¹ÝÈ¯ÇÏ´Â °ÍÀº À§ÇèÇÏ´Ù.
+	â€»			std::move()ëŠ” ê°ì²´ë¥¼ r-valueë¡œ ìºìŠ¤íŒ…í•´ì£¼ëŠ” ê²ƒ ì¼ë¿, ê°ì²´ë¥¼ ì†Œë©¸ì‹œí‚¬ìˆœ ì—†ë‹¤.
+	â€»			ìž„ì‹œê°ì²´ë¥¼ ë ˆí¼ëŸ°ìŠ¤ë‚˜ í¬ì¸í„°ë¡œ ë°˜í™˜í•˜ëŠ” ê²ƒì€ ìœ„í—˜í•˜ë‹¤.
+	
+	â€»			std::forward()ëŠ” TemplateType&&ìœ¼ë¡œ ê°’ì„ ë°˜í™˜í•˜ê¸° ë•Œë¬¸ì— ë³´íŽ¸ì°¸ì¡°ë‹¤.
+	â€»			ì»´íŒŒì¼ íƒ€ìž„ì— íƒ€ìž…ì„ ì¶”ë¡ í•˜ì—¬ TemplateType&&ì´ l-value returnê³¼ r-value return ë‘ê°€ì§€ë¡œ ë‚˜ë‰œë‹¤.
 */
 
 /*
 	int data = 3 + 4;
 	data: l-value
 	3 + 4: r-value
-	7: r-value (ÀÓ½Ã°´Ã¼) -> 3°ú 4°¡ + µÇ¸é¼­ »ý¼ºµÇ°í
-							 ¿¬»êÀÌ ³¡³ª¸é »ç¶óÁü
+	7: r-value (ìž„ì‹œê°ì²´) -> 3ê³¼ 4ê°€ + ë˜ë©´ì„œ ìƒì„±ë˜ê³ 
+							 ì—°ì‚°ì´ ëë‚˜ë©´ ì‚¬ë¼ì§
 
-	int &&a = 3 + 4;	// r-value ÂüÁ¶
-	int &b = a;			// l-value ÂüÁ¶
+	int &&a = 3 + 4;	// r-value ì°¸ì¡°
+	int &b = a;			// l-value ì°¸ì¡°
 */
 
 /*
-	ÀÌµ¿ ½Ã¸ÇÆ½Àº ¿¹¿Ü¸¦ ¹ß»ý½ÃÅ³ ¼ö ¾ø±â¿¡ noexcept Å°¿öµå°¡ ÇÊ¿äÇÏ´Ù.
-	º¹»çÀÇ °æ¿ì ¿¹¿Ü°¡ ¹ß»ýÇÏ¸é º¹»çµÈ ¸Þ¸ð¸®¸¦ ¼Ò¸ê½ÃÅ°¸é µÇÁö¸¸, 
-	ÀÌµ¿ÀÇ °æ¿ì ÀÌµ¿µÈ ¸Þ¸ð¸®¸¦ ¼Ò¸ê½ÃÅ°¸é ±âÁ¸ÀÇ ¸Þ¸ð¸®°¡ ¼Ò¸êµÇ´Â °ÍÀÌ±â ¶§¹®ÀÌ´Ù.
+	ì´ë™ ì‹œë§¨í‹±ì€ ì˜ˆì™¸ë¥¼ ë°œìƒì‹œí‚¬ ìˆ˜ ì—†ê¸°ì— noexcept í‚¤ì›Œë“œê°€ í•„ìš”í•˜ë‹¤.
+	ë³µì‚¬ì˜ ê²½ìš° ì˜ˆì™¸ê°€ ë°œìƒí•˜ë©´ ë³µì‚¬ëœ ë©”ëª¨ë¦¬ë¥¼ ì†Œë©¸ì‹œí‚¤ë©´ ë˜ì§€ë§Œ, 
+	ì´ë™ì˜ ê²½ìš° ì´ë™ëœ ë©”ëª¨ë¦¬ë¥¼ ì†Œë©¸ì‹œí‚¤ë©´ ê¸°ì¡´ì˜ ë©”ëª¨ë¦¬ê°€ ì†Œë©¸ë˜ëŠ” ê²ƒì´ê¸° ë•Œë¬¸ì´ë‹¤.
 */
 
 class Test
@@ -55,24 +58,24 @@ public:
 		cout << "~Test()" << endl;
 		if (data)
 		{
-			delete data;		// data°¡ nullptrÀÌ¶ó¸é ÇØÁ¦µ¿ÀÛÀ» °Ç³Ê¶Ü (´Ù¸¥°÷¿¡¼­ ÀßÃ³¸®ÇØÁØ´Ù¸é ¿¹¿ÜÃ³¸® ÇÊ¿äx)
-			data = nullptr;		// °ªÀÌ ¾Æ´Ñ ÁÖ¼Òº¯°æÀÌ±â¿¡ ¾èÀºº¹»çµÈ ´Ù¸¥ data°¡ nullptr·Î ¹Ù²îÁö ¾ÊÀ½
+			delete data;		// dataê°€ nullptrì´ë¼ë©´ í•´ì œë™ìž‘ì„ ê±´ë„ˆëœ€ (ë‹¤ë¥¸ê³³ì—ì„œ ìž˜ì²˜ë¦¬í•´ì¤€ë‹¤ë©´ ì˜ˆì™¸ì²˜ë¦¬ í•„ìš”x)
+			data = nullptr;		// ê°’ì´ ì•„ë‹Œ ì£¼ì†Œë³€ê²½ì´ê¸°ì— ì–•ì€ë³µì‚¬ëœ ë‹¤ë¥¸ dataê°€ nullptrë¡œ ë°”ë€Œì§€ ì•ŠìŒ
 		}
 	}
-	Test(const Test& rhs)	// º¹»ç»ý¼ºÀÚ
+	Test(const Test& rhs)	// ë³µì‚¬ìƒì„±ìž
 	{
 		cout << "Test(const Test& rhs)" << endl;
-		// ¾èÀºº¹»ç			// ¹®Á¦Á¡	1. lhsÀÇ ¸Þ¸ð¸®ÇØÁ¦°¡ ÀÏ¾î³ª¸é rhs´Â °¡¸®Å°´Â°ªÀÌ »ç¶óÁü (´ó±Û¸µÆ÷ÀÎÅÍ)
-		//data = rhs.data;	//			2. ¼Ò¸êÀÚ¿¡¼­ ¸Þ¸ð¸®ÇØÁ¦°¡ µÎ¹ø ÀÏ¾î³² (´õºíÇÁ¸®)
-		// ±íÀºº¹»ç
-		data = new int{ *rhs.data };	// data¿¡ rhs.dataÀÇ '°ª'À» ÇÒ´ç
-										// rhs.data = ÁÖ¼Ò°ª, *rhs.data = °ª
+		// ì–•ì€ë³µì‚¬			// ë¬¸ì œì 	1. lhsì˜ ë©”ëª¨ë¦¬í•´ì œê°€ ì¼ì–´ë‚˜ë©´ rhsëŠ” ê°€ë¦¬í‚¤ëŠ”ê°’ì´ ì‚¬ë¼ì§ (ëŒ•ê¸€ë§í¬ì¸í„°)
+		//data = rhs.data;	//			2. ì†Œë©¸ìžì—ì„œ ë©”ëª¨ë¦¬í•´ì œê°€ ë‘ë²ˆ ì¼ì–´ë‚¨ (ë”ë¸”í”„ë¦¬)
+		// ê¹Šì€ë³µì‚¬
+		data = new int{ *rhs.data };	// dataì— rhs.dataì˜ 'ê°’'ì„ í• ë‹¹
+										// rhs.data = ì£¼ì†Œê°’, *rhs.data = ê°’
 	}
-	Test(Test&& rhs) noexcept			// ÀÌµ¿»ý¼ºÀÚ: ÀÓ½Ã°´Ã¼¶ó´Â Á¡À» °í·ÁÇØ ¾èÀºº¹»ç¸¦ ÇÏ¿© ¼º´ÉÀ» ³ôÀÌÀÚ.
+	Test(Test&& rhs) noexcept			// ì´ë™ìƒì„±ìž: ìž„ì‹œê°ì²´ë¼ëŠ” ì ì„ ê³ ë ¤í•´ ì–•ì€ë³µì‚¬ë¥¼ í•˜ì—¬ ì„±ëŠ¥ì„ ë†’ì´ìž.
 	{
 		cout << "Test(Test&& rhs)" << endl;
-		data = rhs.data;	// ¾èÀºº¹»ç
-		rhs.data = nullptr;	// ¾ÈÇØÁÖ¸é delete°¡ µÎ¹ø ÀÏ¾î³² (´õºíÇÁ¸®)
+		data = rhs.data;	// ì–•ì€ë³µì‚¬
+		rhs.data = nullptr;	// ì•ˆí•´ì£¼ë©´ deleteê°€ ë‘ë²ˆ ì¼ì–´ë‚¨ (ë”ë¸”í”„ë¦¬)
 	}
 
 	const int* getData() const { return data; }	// return by address
@@ -81,12 +84,12 @@ public:
 
 int main()
 {
-	Test a{};				// ±âº»»ý¼ºÀÚ È£Ãâ
+	Test a{};				// ê¸°ë³¸ìƒì„±ìž í˜¸ì¶œ
 
 	cout << "a: " << a.getData() << endl;
 
-	Test b{ a };			// º¹»ç»ý¼ºÀÚ È£Ãâ ( °´Ã¼°¡ »õ·Ó°Ô »ý¼ºµÉ¶§¸¸! -> b = a;´Â ´ëÀÔ¿¬»êÀÚ)
-	Test c{ std::move(a) };	// ÀÌµ¿»ý¼ºÀÚ È£Ãâ, move: r-value·Î Ä³½ºÆÃ
+	Test b{ a };			// ë³µì‚¬ìƒì„±ìž í˜¸ì¶œ ( ê°ì²´ê°€ ìƒˆë¡­ê²Œ ìƒì„±ë ë•Œë§Œ! -> b = a;ëŠ” ëŒ€ìž…ì—°ì‚°ìž)
+	Test c{ std::move(a) };	// ì´ë™ìƒì„±ìž í˜¸ì¶œ, move: r-valueë¡œ ìºìŠ¤íŒ…
 
 	cout << "a: " << a.getData() << "	b: " << b.getData() << "	c: " << c.getData() << endl;
 }
