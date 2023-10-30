@@ -3,7 +3,7 @@
 using namespace std;
 
 /*
-	생성자	-	1. 기본 생성자
+	생성자	-		1. 기본 생성자
 				2. 다중 정의된 생성자
 				3. 복사 생성자
 						깊은복사: 값을 복사
@@ -14,7 +14,7 @@ using namespace std;
 */
 
 /*
-	임시객체  -	1. 함수 내 지역변수 선언이나 연산과정에서 발생
+	임시객체  -		1. 함수 내 지역변수 선언이나 연산과정에서 발생
 				2. 모두 r-value
 				3. 연산이 끝나면 자동 소멸
 				4. 임시객체를 참조할경우 참조자의 scope가 닫힐 때까지 임시객체도 소멸안함
@@ -23,7 +23,8 @@ using namespace std;
 	※			임시객체를 레퍼런스나 포인터로 반환하는 것은 위험하다.
 	
 	※			std::forward()는 TemplateType&&으로 값을 반환하기 때문에 보편참조다.
-	※			컴파일 타임에 타입을 추론하여 TemplateType&&이 l-value return과 r-value return 두가지로 나뉜다.
+	※			컴파일 타임에 타입을 추론하여 TemplateType&&이 l-value return과 r-value return 두가지로 나뉜다. (Perfect forwarding)
+ 	※			주로 템플릿 인자에 사용한다. (인자를 l-value로 받았던, r-value로 받았던 인자는 l-value기 때문에 다시 보편참조를 실행)
 */
 
 /*
